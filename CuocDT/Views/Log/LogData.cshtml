@@ -1,0 +1,16 @@
+﻿@model List<CuocDT.Models.LogInfo>
+@{
+    ViewBag.Title = "LogData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int totalTime = 0;
+}
+
+<h2>Data Log - Total log: @Model.Count</h2>
+<div>
+    @foreach (var item in Model)
+    {
+        totalTime += item.TotalTimeCall;
+        <p>@item.SoDT  ||  @item.TGBD  ||  @item.TGKT  ||  @item.TotalTimeCall</p>
+    }
+    <h1> Total: @totalTime Phút</h1>
+</div>

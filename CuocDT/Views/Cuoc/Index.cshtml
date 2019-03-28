@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tra cứu - tính cước</h2>
+Vui lòng nhập số điện thoại cần tra cứu
+<div class="search_box">
+    <form id="formsubmit" action="/tim-kiem" method="GET">
+        <input type="text" id="txtSearch" name="sdt" placeholder="Search..."><input class="btn" type="submit" value="Search">
+    </form>
+</div>
+<div class="clear"></div>
+
