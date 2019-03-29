@@ -25,7 +25,7 @@ namespace Models.DAO
         }
         public DateTime NextKT(DateTime DS)
         {
-            return DS.AddSeconds(gen.Next(30, 2000));
+            return DS.AddSeconds(gen.Next(30, 18000));
         }
     }
 }

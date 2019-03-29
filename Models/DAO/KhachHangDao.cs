@@ -23,6 +23,10 @@ namespace Models.DAO
         // lấy list theo sdt
         public KhachHang ListTheoSDT(string sdt)
         {
+            if(sdt == "")
+            {
+                sdt = "eror404";
+            }
             var model = db.KhachHangs.Where(x => x.SoDT.Contains(sdt));
             return model.SingleOrDefault();
         }

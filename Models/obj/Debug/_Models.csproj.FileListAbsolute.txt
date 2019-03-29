@@ -9,3 +9,4 @@ C:\Users\Thien\source\repos\CuocDT\Models\obj\Debug\_Models.csproj.CoreCompileIn
 C:\Users\Thien\source\repos\CuocDT\Models\obj\Debug\_Models.csproj.CopyComplete
 C:\Users\Thien\source\repos\CuocDT\Models\obj\Debug\Models.dll
 C:\Users\Thien\source\repos\CuocDT\Models\obj\Debug\Models.pdb
+C:\Users\Thien\source\repos\CuocDT\Models\obj\Debug\_Models.csprojAssemblyReference.cache

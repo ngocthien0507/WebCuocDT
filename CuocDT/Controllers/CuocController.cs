@@ -69,54 +69,35 @@ namespace CuocDT.Controllers
                 string timeNight = item.StartDate + " " + "23:00:00";
                 DateTime morning = DateTime.ParseExact(timeMorning, "d/M/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 DateTime night = DateTime.ParseExact(timeNight, "d/M/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                if ((item.TGBD > morning && item.TGBD <= night)&&(item.TGKT > morning && item.TGKT <= night))
+                item.ThanhTien = 0;
+                item.TimeCall23h = 0;
+                item.TimeCall7h = 0;
+                DateTime CheckDate = item.TGBD;
+                while (CheckDate <= item.TGKT)
                 {
-                    TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                    item.TimeCall7h = Convert.ToInt32(TimeCall.TotalMinutes);
-                    item.TimeCall23h = 0;
-                }
-                else if ((item.TGBD > night || item.TGBD <= morning) && (item.TGKT > night || item.TGKT <= morning))
-                {
-                    if(item.TGBD <=morning && item.TGKT > night)
+                    if(CheckDate.Date > morning.Date)
                     {
-                        item.TimeCall7h = 16 * 60;
-                        TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                        int timetemp = Convert.ToInt32(TimeCall.TotalMinutes);
-                        item.TimeCall23h = timetemp - item.TimeCall7h;
-
+                        morning = morning.AddDays(1);
+                        night = night.AddDays(1);
+                    }
+                    CheckDate = CheckDate.AddMinutes(1);
+                    if(CheckDate <= morning )
+                    {
+                        item.ThanhTien += 150;
+                        item.TimeCall23h += 1;
+                    }
+                    else if(CheckDate > morning && CheckDate <=night)
+                    {
+                        item.ThanhTien += 200;
+                        item.TimeCall7h += 1;
                     }
                     else
                     {
-                        TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                        item.TimeCall23h = Convert.ToInt32(TimeCall.TotalMinutes);
-                        item.TimeCall7h = 0;
-                    }
-
+                        item.ThanhTien += 150;
+                        item.TimeCall23h += 1;
+                    }   
                 }
-                else
-                {
-                    if (item.TGBD > morning && item.TGBD <= night)
-                    {
-                        TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                        int timetemp = Convert.ToInt32(TimeCall.TotalMinutes);
-                        TimeSpan TimeCallBD = night.Subtract(item.TGBD);
-                        item.TimeCall7h = Convert.ToInt32(TimeCallBD.TotalMinutes);
-                        item.TimeCall23h = timetemp - item.TimeCall7h;
-                    }
-                    if(item.TGBD > night || item.TGBD <= morning)
-                    {
-                        TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                        int timetemp = Convert.ToInt32(TimeCall.TotalMinutes);
-                        TimeSpan TimeCallBD = item.TGKT.Subtract(morning);
-                        item.TimeCall7h = Convert.ToInt32(TimeCallBD.TotalMinutes);
-                        item.TimeCall23h = timetemp - item.TimeCall7h;
-                    }
-                }
-
-
-                //   TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                item.TotalTimeCall = item.TimeCall7h + item.TimeCall23h;
-                item.ThanhTien =item.TimeCall7h * 200 + item.TimeCall23h * 150;
+                item.TotalTimeCall = item.TimeCall23h + item.TimeCall7h;
                 list.Add(item);
             }
             IEnumerable<LogInfo> query = from row in list
