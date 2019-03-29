@@ -11,33 +11,42 @@ namespace CuocDT_Win.BIZ
 {
     public class CuocBIZ
     {
-        public List<LogInfo> ReadDataAll()
+        public List<LogInfo> BagList = new List<LogInfo>();
+        public List<LogInfo> BagListBySDT = new List<LogInfo>();
+        public List<LogInfo> ListAll()
         {
-            string _filename = @"C:\Users\Thien\source\repos\CuocDT\Log.txt";
-            string[] words;
-            words = System.IO.File.ReadAllLines(_filename, Encoding.Unicode);
-            //Encoding.Default: đọc theo mã mặc định của file text
-            // đọc file
-            int limit = words.Length;
-            var list = new List<LogInfo>();
-            //Chạy từng dòng trong file text
-            for (int i = 0; i < limit - 1; i++)
-            {
-                string[] str = words[i + 1].Split('\t');
-                var item = new LogInfo();
-                item.SoDT = str[0].ToString();
-                item.TGBD = DateTime.ParseExact(str[1], "d/M/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                item.TGKT = DateTime.ParseExact(str[2], "d/M/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                TimeSpan TimeCall = item.TGKT.Subtract(item.TGBD);
-                item.TotalTimeCall = Convert.ToInt32(TimeCall.TotalMinutes);
-                list.Add(item);
-            }
-            IEnumerable<LogInfo> query = from row in list
-                                         orderby row.SoDT
-                                         select row;
-            return query.ToList();
+            return ReadData();
         }
-        public List<LogInfo> ReadDataSDT(string sdt)
+        public List<LogInfo> ListBySDT(string sdt)
+        {
+            List<LogInfo> a = BagList;
+            IEnumerable<LogInfo> query = from row in a
+                                         where row.SoDT == sdt
+                                         orderby row.TGBD
+                                         select row;
+            BagListBySDT = query.ToList();
+            return query.ToList();
+
+        }
+        public decimal? TinhCuocThang(int thang)
+        {
+            int Time7h = 0;
+            int Time23h = 0;
+            decimal? CostMonth = 50000;
+            foreach(var item in BagListBySDT)
+            {
+                if(item.TGBD.Month == thang)
+                {
+                    Time7h += item.TimeCall7h;
+                    Time23h += item.TimeCall23h;
+                    CostMonth += item.ThanhTien;
+                }
+            }
+
+            return CostMonth;
+        }
+
+        public List<LogInfo> ReadData()
         {
             string _filename = @"C:\Users\Thien\source\repos\CuocDT\Log.txt";
             string[] words;
@@ -91,11 +100,9 @@ namespace CuocDT_Win.BIZ
                 item.TotalTimeCall = item.TimeCall23h + item.TimeCall7h;
                 list.Add(item);
             }
-            IEnumerable<LogInfo> query = from row in list
-                                         where row.SoDT == sdt
-                                         orderby row.TGBD
-                                         select row;
-            return query.ToList();
+            BagList = list;
+            return list;
         }
+
     }
 }
