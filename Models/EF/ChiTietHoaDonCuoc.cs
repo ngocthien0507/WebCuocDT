@@ -11,6 +11,7 @@ namespace Models.EF
     {
         [Key]
         [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idHD { get; set; }
 
         [Key]
@@ -24,9 +25,5 @@ namespace Models.EF
 
         [Column(TypeName = "money")]
         public decimal? ThanhTien { get; set; }
-
-        public virtual HoaDonCuoc HoaDonCuoc { get; set; }
-
-        public virtual SIM SIM { get; set; }
     }
 }

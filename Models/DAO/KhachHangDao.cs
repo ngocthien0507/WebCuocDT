@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Models.DAO
 {
     public class KhachHangDao
     {
+
         CuocDbContext db = null;
         public KhachHangDao()
         {
@@ -19,6 +21,13 @@ namespace Models.DAO
         public List<KhachHang> ListAll()
         {
             return db.KhachHangs.ToList();
+        }
+        public BindingSource GetAllCus()
+        {
+            var Cus = from p in db.KhachHangs select new { ID = p.idKhachHang , Name = p.TenKH , Passport = p.CMND , Job = p.NgheNghiep , Address = p.DiaChi , Phone = p.SoDT  };
+            BindingSource result = new BindingSource();
+            result.DataSource = Cus.ToList();
+            return result;
         }
         // lấy list theo sdt
         public KhachHang ListTheoSDT(string sdt)

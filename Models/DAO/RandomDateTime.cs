@@ -12,9 +12,9 @@ namespace Models.DAO
         Random gen;
         int range;
 
-        public RandomDateTime()
+        public RandomDateTime(DateTime Datestart)
         {
-            start = new DateTime(2019, 1, 1, 0, 0, 0);
+            start = Datestart;
             gen = new Random();
             range = (DateTime.Today - start).Days;
         }

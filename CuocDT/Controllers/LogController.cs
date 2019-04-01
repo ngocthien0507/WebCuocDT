@@ -21,7 +21,7 @@ namespace CuocDT.Controllers
         public JsonResult GhiLog()
         {
             FileText ft = new FileText();
-            ft.FileName = @"C:\Users\Thien\source\repos\CuocDT\Log.txt";
+            ft.FileName = @"E:\Download\download\WebCuocDT-master\WebCuocDT-master\Log.txt";
             ft.WriteData();
             return Json(new
             {
@@ -44,7 +44,7 @@ namespace CuocDT.Controllers
 
         public void ReadData()
         {
-            string _filename = @"C:\Users\Thien\source\repos\CuocDT\Log.txt";
+            string _filename = @"E:\Download\download\WebCuocDT-master\WebCuocDT-master\Log.txt";
             string[] words;
             words = System.IO.File.ReadAllLines(_filename, Encoding.Unicode);
             //Encoding.Default: đọc theo mã mặc định của file text

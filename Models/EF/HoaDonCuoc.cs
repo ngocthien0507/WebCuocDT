@@ -9,12 +9,6 @@ namespace Models.EF
     [Table("HoaDonCuoc")]
     public partial class HoaDonCuoc
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HoaDonCuoc()
-        {
-            ChiTietHoaDonCuocs = new HashSet<ChiTietHoaDonCuoc>();
-        }
-
         [Key]
         public int idHD { get; set; }
 
@@ -29,9 +23,6 @@ namespace Models.EF
         public int? Month { get; set; }
 
         public int? Year { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDonCuoc> ChiTietHoaDonCuocs { get; set; }
 
         public virtual SIM SIM { get; set; }
     }

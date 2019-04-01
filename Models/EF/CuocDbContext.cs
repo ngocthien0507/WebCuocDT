@@ -39,11 +39,6 @@ namespace Models.EF
                 .Property(e => e.TongTien)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<HoaDonCuoc>()
-                .HasMany(e => e.ChiTietHoaDonCuocs)
-                .WithRequired(e => e.HoaDonCuoc)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<HoaDonDK>()
                 .Property(e => e.CMND)
                 .IsUnicode(false);
@@ -76,12 +71,6 @@ namespace Models.EF
             modelBuilder.Entity<SIM>()
                 .Property(e => e.idSim)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<SIM>()
-                .HasMany(e => e.ChiTietHoaDonCuocs)
-                .WithRequired(e => e.SIM)
-                .HasForeignKey(e => e.SoDT)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SIM>()
                 .HasMany(e => e.HoaDonCuocs)

@@ -12,7 +12,6 @@ namespace Models.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SIM()
         {
-            ChiTietHoaDonCuocs = new HashSet<ChiTietHoaDonCuoc>();
             HoaDonCuocs = new HashSet<HoaDonCuoc>();
             KhachHangs = new HashSet<KhachHang>();
         }
@@ -28,9 +27,6 @@ namespace Models.EF
         public DateTime? NgayKichHoat { get; set; }
 
         public int TinhTrang { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDonCuoc> ChiTietHoaDonCuocs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDonCuoc> HoaDonCuocs { get; set; }

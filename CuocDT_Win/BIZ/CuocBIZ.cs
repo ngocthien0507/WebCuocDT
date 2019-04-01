@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CuocDT.Controllers;
 using CuocDT.Models;
+using Models.EF;
 
 namespace CuocDT_Win.BIZ
 {
@@ -21,18 +22,20 @@ namespace CuocDT_Win.BIZ
         {
             List<LogInfo> a = BagList;
             IEnumerable<LogInfo> query = from row in a
-                                         where row.SoDT == sdt
+                                         where row.SoDT.Contains(sdt)
                                          orderby row.TGBD
                                          select row;
             BagListBySDT = query.ToList();
             return query.ToList();
 
         }
-        public decimal? TinhCuocThang(int thang)
+
+        public decimal? TinhCuocThang(int thang, string SDT)
         {
             int Time7h = 0;
             int Time23h = 0;
             decimal? CostMonth = 50000;
+            ListBySDT(SDT);
             foreach(var item in BagListBySDT)
             {
                 if(item.TGBD.Month == thang)
@@ -48,7 +51,7 @@ namespace CuocDT_Win.BIZ
 
         public List<LogInfo> ReadData()
         {
-            string _filename = @"C:\Users\Thien\source\repos\CuocDT\Log.txt";
+            string _filename = @"E:\Download\download\WebCuocDT-master\WebCuocDT-master\Log.txt";
             string[] words;
             words = System.IO.File.ReadAllLines(_filename, Encoding.Unicode);
             //Encoding.Default: đọc theo mã mặc định của file text

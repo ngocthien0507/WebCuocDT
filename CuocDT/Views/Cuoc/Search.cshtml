@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Search";
     var ThueBao = (Models.EF.KhachHang)ViewBag.SoDT;
+    var HoaDonBySDT = (List<Models.EF.HoaDonCuoc>)ViewBag.HoaDonBySDT;
     Layout = "~/Views/Shared/_Layout.cshtml";
     int M = DateTime.Now.Month;
     int Y = DateTime.Now.Year;
@@ -22,7 +23,6 @@
         int TotalTime723 = 0;
         int TotalTime237 = 0;
         int TotalTime = 0;
-        decimal? CostMonth = 0;
         <h4>Chi Tiết Tháng @i Năm @Y</h4>
         foreach (var item in Model)
         {
@@ -30,15 +30,29 @@
             {
                 TotalTime723 += item.TimeCall7h;
                 TotalTime237 += item.TimeCall23h;
-                CostMonth += item.ThanhTien;
-        <p>@item.SoDT  ||  @item.TGBD  ||  @item.TGKT  || @item.TotalTimeCall phút || Mor: @item.TimeCall7h - Nig: @item.TimeCall23h  ||@item.ThanhTien.GetValueOrDefault(0).ToString("N0") VND </p>
+                <p>@item.SoDT  ||  @item.TGBD  ||  @item.TGKT  || @item.TotalTimeCall phút || Mor: @item.TimeCall7h - Nig: @item.TimeCall23h  ||@item.ThanhTien.GetValueOrDefault(0).ToString("N0") VND </p>
             }
         }
         TotalTime = TotalTime237 + TotalTime723;
-        CostMonth += 50000;
         <h4>Tổng thời gian gọi: @TotalTime phút || Sau 7h :@TotalTime723 || Sau 23h: @TotalTime237 </h4>
-        <h4>Tổng hóa đơn tháng @i/@Y: <a style="color:red">@CostMonth.GetValueOrDefault(0).ToString("N0") VND</a>  </h4>
-
+        foreach (var hoadon in HoaDonBySDT)
+        {
+            if (hoadon.Month == i && hoadon.Year == Y)
+            {
+                <h4>
+                    Tổng hóa đơn tháng @i/@Y: <a style="color:red">@hoadon.TongTien.GetValueOrDefault(0).ToString("N0") VND</a> -
+                    @if (hoadon.TinhTrang == 1)
+                    {
+                        <a>Hóa đơn đã thanh toán</a>
+                    }
+                    else
+                    {
+                        <a style="color:red">Hóa đơn chưa thanh toán</a>
+                    }
+                </h4>
+            }
+        }
+        <p>-----------------------------------------------------------------------------------------------------</p>
     }
 }
 else

@@ -42,6 +42,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\BillDAO.cs" />
     <Compile Include="DAO\FileText.cs" />
     <Compile Include="DAO\KhachHangDao.cs" />
     <Compile Include="DAO\RandomDateTime.cs" />
+    <Compile Include="DAO\SimDAO.cs" />
     <Compile Include="EF\ChiTietHoaDonCuoc.cs" />
     <Compile Include="EF\CuocDbContext.cs" />
     <Compile Include="EF\HoaDonCuoc.cs" />

@@ -20,6 +20,8 @@ namespace CuocDT.Controllers
         public ActionResult Search(string sdt)
         {
             ReadData(sdt);
+            var HoaDonbySDT = new BillDAO().ListBySDT(sdt);
+            ViewBag.HoaDonBySDT = HoaDonbySDT;
             var thuebao = new KhachHangDao().ListTheoSDT(sdt);
             ViewBag.SoDT = thuebao;
             IEnumerable<LogInfo> query = ViewBag.query;
@@ -48,7 +50,7 @@ namespace CuocDT.Controllers
 
         public void ReadData(string sdt)
         {
-            string _filename = @"C:\Users\Thien\source\repos\CuocDT\Log.txt";
+            string _filename = @"E:\Download\download\WebCuocDT-master\WebCuocDT-master\Log.txt";
             string[] words;
             words = System.IO.File.ReadAllLines(_filename, Encoding.Unicode);
             //Encoding.Default: đọc theo mã mặc định của file text
