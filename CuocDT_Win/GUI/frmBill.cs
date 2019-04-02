@@ -46,17 +46,23 @@ namespace CuocDT_Win.GUI
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+            var cb = comboBox1.SelectedItem.ToString();
             string SDT = textBox1.Text;
-            if(SDT =="" )
+            if(SDT =="")
             {
                 dtgvBillP.DataSource = a.ListTableBill();
             }
-            else
+            else if (cb == "All")
             {
                                        
                 dtgvBillP.DataSource = (from p in db.HoaDonCuocs
-                                        where p.SoDT.Contains(SDT) 
-                                       
+                                        where p.SoDT.Contains(SDT)
+                                        select new { ID = p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
+            }
+            else
+            {
+                dtgvBillP.DataSource = (from p in db.HoaDonCuocs
+                                        where p.SoDT.Contains(SDT) && p.Month.ToString() == cb
                                         select new { ID = p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
             }
             decimal? tinhtongtien()
