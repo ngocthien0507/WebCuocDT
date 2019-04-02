@@ -46,6 +46,14 @@ namespace CuocDT_Win.BIZ
             result.DataSource = bill.ToList();
             return result;
         }
+        public bool SaveStatus(int id )
+        {
+
+            HoaDonCuoc bill = db.HoaDonCuocs.Single(a => a.idHD == id);
+            bill.TinhTrang = 1;
+            db.SaveChanges();
+            return true;
+        }
 
     }
 }

@@ -30,7 +30,7 @@ namespace Models.DAO
         }
         public BindingSource ListTableBill()
         {
-            var bill = from p in db.HoaDonCuocs select new { ID =  p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month= p.Month , Year = p.Year };
+            var bill = from p in db.HoaDonCuocs select new { ID = p.idHD, Phone = p.SoDT, Status = p.TinhTrang, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year };
             BindingSource result = new BindingSource();
             result.DataSource = bill.ToList();
             return result;

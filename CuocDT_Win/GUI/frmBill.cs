@@ -29,6 +29,7 @@ namespace CuocDT_Win.GUI
              dtgvBill.DataSource = a.ListTableBillDK();
             
              dtgvBillP.DataSource = a.ListTableBill();
+
         }
  
 
@@ -38,6 +39,7 @@ namespace CuocDT_Win.GUI
             string sodt = dtgvBillP.SelectedCells[0].OwningRow.Cells["Phone"].Value.ToString();
             int thang = int.Parse(dtgvBillP.SelectedCells[0].OwningRow.Cells["Month"].Value.ToString());
 
+           
             frmBillInf bill = new frmBillInf(id , sodt , thang);
             
             bill.ShowDialog();
@@ -46,24 +48,18 @@ namespace CuocDT_Win.GUI
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
-            var cb = comboBox1.SelectedItem.ToString();
             string SDT = textBox1.Text;
-            if(SDT =="")
+            if(SDT =="" )
             {
                 dtgvBillP.DataSource = a.ListTableBill();
             }
-            else if (cb == "All")
+            else
             {
                                        
                 dtgvBillP.DataSource = (from p in db.HoaDonCuocs
-                                        where p.SoDT.Contains(SDT)
-                                        select new { ID = p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
-            }
-            else
-            {
-                dtgvBillP.DataSource = (from p in db.HoaDonCuocs
-                                        where p.SoDT.Contains(SDT) && p.Month.ToString() == cb
-                                        select new { ID = p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
+                                        where p.SoDT.Contains(SDT) 
+                                       
+                                        select new { ID = p.idHD, Phone = p.SoDT,Status = p.TinhTrang ,TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
             }
             decimal? tinhtongtien()
             {
@@ -106,11 +102,42 @@ namespace CuocDT_Win.GUI
                 dtgvBillP.DataSource = (from p in db.HoaDonCuocs
                                         where p.SoDT.Contains(SDT) && p.Month.ToString() == cb
 
-                                        select new { ID = p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
+                                        select new { ID = p.idHD, Phone = p.SoDT, Status = p.TinhTrang, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year }).ToList();
             }
             
         }
 
+        private void dtgvBillP_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string status = dtgvBillP.SelectedCells[0].OwningRow.Cells["Status"].Value.ToString();
+            if(status =="0")
+            {
+              
+                label2.Text = "Hóa đơn chưa thanh toán";
+            }
+           else
+            {
+                label2.Text = " Hóa đơn đã thanh toán";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            int id = int.Parse(dtgvBillP.SelectedCells[0].OwningRow.Cells["ID"].Value.ToString());
+            string status = dtgvBillP.SelectedCells[0].OwningRow.Cells["Status"].Value.ToString();
+            if(status =="1")
+            {
+                MessageBox.Show("Hóa đơn đã thanh toán rồi");
+            }
+            else
+            {
+                cus.SaveStatus(id);
+                MessageBox.Show("Thanh toán thành công");
+                LoadData();
+            }
+            
+        }
     }
 }
 
