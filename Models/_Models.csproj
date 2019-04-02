@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\BillDAO.cs" />
+    <Compile Include="DAO\ChiTietHoaDonDAO.cs" />
     <Compile Include="DAO\FileText.cs" />
     <Compile Include="DAO\KhachHangDao.cs" />
     <Compile Include="DAO\RandomDateTime.cs" />

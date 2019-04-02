@@ -73,7 +73,7 @@
             this.groupBox1.Size = new System.Drawing.Size(337, 295);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Thông tin";
+            this.groupBox1.Text = "Thanh toán";
             // 
             // label2
             // 

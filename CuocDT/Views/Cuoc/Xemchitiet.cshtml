@@ -1,0 +1,28 @@
+﻿@model List<CuocDT.Models.LogInfo>
+@{
+    ViewBag.Title = "Xemchitiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string sdt = ViewBag.SDT;
+    int month = ViewBag.Month;
+}
+<h3>Số điện thoại: @sdt  - Tháng @month </h3>
+<table class="table" id="Table">
+    <thead>
+        <tr>
+            <td>Thời gian bắt đầu</td>
+            <td>Thời gian kết thúc</td>
+            <td>Thành tiền</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TGBD</td>
+                <td>@item.TGKT</td>
+                <td>@item.ThanhTien.GetValueOrDefault(0).ToString("N0") VND</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn-link" href="/tim-kiem?sdt=@sdt">Quay lại</a>

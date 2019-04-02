@@ -16,50 +16,44 @@
         Lưu ý: Cước phí tháng được tính = 50000(*) + Số phút gọi(7h - 23h)x200 + Số phút gọi(23h - 7h)x150(VND)
         (*): Cước thuê bao
     </p>
-    <p>Số SIM   ||  Thời gian bắt đầu   ||   Thời gian kết thúc || Độ dài cuộc gọi || Khoảng thời gian gọi || Thành Tiền </p>
+    <table class="table" id="Table">
+        <thead>
+            <tr>
+                <td>Số điện thoại</td>
+                <td>Tháng</td>
+                <td>Năm</td>
+                <td>Tổng tiền</td>
+                <td>Trạng thái</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach (var hoadon in HoaDonBySDT)
+                {
+            <tr>
+                <td>@hoadon.SoDT</td>
+                <td>@hoadon.Month</td>
+                <td>@hoadon.Year</td>
+                <td>@hoadon.TongTien.GetValueOrDefault(0).ToString("N0") VND</td>
+                @if (hoadon.TinhTrang == 0)
+                {
+                    <td>Chưa thanh toán</td>
+                }
+                else
+                {
+                    <td>Đã thanh toán</td>
+                }
+                <td>@Html.ActionLink("Xem chi tiết", "Xemchitiet", new { @Month = hoadon.Month , @sdt = hoadon.SoDT })</td>
+            </tr>
+                }
+        </tbody>
 
-    for (int i = 1; i <= M; i++)
-    {
-        int TotalTime723 = 0;
-        int TotalTime237 = 0;
-        int TotalTime = 0;
-        <h4>Chi Tiết Tháng @i Năm @Y</h4>
-        foreach (var item in Model)
-        {
-            if (item.TGBD.Month == i && item.TGBD.Year == Y)
-            {
-                TotalTime723 += item.TimeCall7h;
-                TotalTime237 += item.TimeCall23h;
-                <p>@item.SoDT  ||  @item.TGBD  ||  @item.TGKT  || @item.TotalTimeCall phút || Mor: @item.TimeCall7h - Nig: @item.TimeCall23h  ||@item.ThanhTien.GetValueOrDefault(0).ToString("N0") VND </p>
-            }
-        }
-        TotalTime = TotalTime237 + TotalTime723;
-        <h4>Tổng thời gian gọi: @TotalTime phút || Sau 7h :@TotalTime723 || Sau 23h: @TotalTime237 </h4>
-        foreach (var hoadon in HoaDonBySDT)
-        {
-            if (hoadon.Month == i && hoadon.Year == Y)
-            {
-                <h4>
-                    Tổng hóa đơn tháng @i/@Y: <a style="color:red">@hoadon.TongTien.GetValueOrDefault(0).ToString("N0") VND</a> -
-                    @if (hoadon.TinhTrang == 1)
-                    {
-                        <a>Hóa đơn đã thanh toán</a>
-                    }
-                    else
-                    {
-                        <a style="color:red">Hóa đơn chưa thanh toán</a>
-                    }
-                </h4>
-            }
-        }
-        <p>-----------------------------------------------------------------------------------------------------</p>
-    }
+    </table>
 }
 else
 {
     <h1>Không có thuê bao tra cứu</h1>
 }
-
 
 
 

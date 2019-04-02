@@ -67,7 +67,7 @@ namespace CuocDT_Win.GUI
             if (txt_SDT.Text != "")
             {
                 int thang = int.Parse(txt_thang.Text);
-                decimal? CuocThang = a.TinhCuocThang(thang,txt_SDT.Text);
+                decimal? CuocThang = a.TinhCuocThang(thang, txt_SDT.Text);
                 txt_giacuocthang.Text = CuocThang.GetValueOrDefault(0).ToString("N0") + "VNĐ";
             }
             else
@@ -81,13 +81,13 @@ namespace CuocDT_Win.GUI
         {
             CuocDbContext db = new CuocDbContext();
             BillDAO a = new BillDAO();
-            List<HoaDonCuoc> count = db.HoaDonCuocs.Select(b=>b).ToList();
+            List<HoaDonCuoc> count = db.HoaDonCuocs.Select(b => b).ToList();
             var q = a.ListTableBill();
-            if(q.Count == 0 )
+            if (q.Count == 0)
             {
                 AddData();
             }
-         
+
             else
             {
                 int maxID = count.Max(p => p.idHD);
@@ -96,14 +96,25 @@ namespace CuocDT_Win.GUI
                 {
                     Xoa(i);
                 }
+                XoaChiTiet();
                 AddData();
             }
+        }
+        public void XoaChiTiet()
+        {
+            CuocDbContext db = new CuocDbContext();
+            var rows = from o in db.ChiTietHoaDonCuocs select o;
+            foreach (var row in rows)
+            {
+                db.ChiTietHoaDonCuocs.Remove(row);
+            }
+            db.SaveChanges();
         }
         public void Xoa(int id)
         {
             List<HoaDonCuoc> sanphams = new List<HoaDonCuoc>();
             CuocDbContext db = new CuocDbContext();
-            HoaDonCuoc xoa = db.HoaDonCuocs.SingleOrDefault(a => a.idHD  == id );
+            HoaDonCuoc xoa = db.HoaDonCuocs.SingleOrDefault(a => a.idHD == id);
             db.HoaDonCuocs.Remove(xoa);
             db.SaveChanges();
         }
@@ -114,23 +125,39 @@ namespace CuocDT_Win.GUI
             SimDAO d = new SimDAO();
             DateTime date = DateTime.Now;
             int thang = date.Month;
-            foreach( var item in d.GetPhone())
+            foreach (var item in d.GetPhone())
             {
                 var MonthStart = (DateTime)item.NgayKichHoat;
-                    for (int i = MonthStart.Month; i < thang; i++)
+                for (int i = MonthStart.Month; i < thang; i++)
                 {
-                  bill.SoDT =  item.idSim.ToString();
-                  bill.TongTien = a.TinhCuocThang(i,item.idSim);
-                  bill.Month = i;
-                  bill.TinhTrang = 0;
-                  bill.Year = 2019;
-                  db.HoaDonCuocs.Add(bill);
-                  db.SaveChanges();
+                    bill.SoDT = item.idSim.ToString();
+                    bill.TongTien = a.TinhCuocThang(i, item.idSim);
+                    bill.Month = i;
+                    bill.TinhTrang = 0;
+                    bill.Year = 2019;
+                    db.HoaDonCuocs.Add(bill);
+                    db.SaveChanges();
+                    ChiTietHoaDonCuoc billinf = new ChiTietHoaDonCuoc();
+                    var ListBill = from all in a.ListAll()
+                                   where all.SoDT == bill.SoDT.ToString()
+                                   where all.TGBD.Month == i
+                                   select all;
+                        foreach (var items in ListBill)
+                        {
+                            billinf.idHD = bill.idHD;
+                            billinf.SoDT = bill.SoDT.ToString();
+                            billinf.TGBD = items.TGBD;
+                            billinf.TGKT = items.TGKT;
+                            billinf.ThanhTien = items.ThanhTien;
+                            db.ChiTietHoaDonCuocs.Add(billinf);
+                            db.SaveChanges();
+                        }
                 }
             }
 
+
         }
-       
+
 
         private void txt_SDT_TextChanged(object sender, EventArgs e)
         {
@@ -138,7 +165,7 @@ namespace CuocDT_Win.GUI
             if (SDT == "")
             {
                 dataGridView1.DataSource = a.ListAll();
-               
+
             }
             else
             {
@@ -165,10 +192,10 @@ namespace CuocDT_Win.GUI
                 txtthang = date.Month + 1;
             else
                 txtthang = int.Parse(txt_thang.Text);
-            if (txt_SDT.Text != ""  && txtthang <= date.Month )
+            if (txt_SDT.Text != "" && txtthang <= date.Month)
             {
                 int thang = int.Parse(txt_thang.Text);
-                decimal? CuocThang = a.TinhCuocThang(thang,txt_SDT.Text);
+                decimal? CuocThang = a.TinhCuocThang(thang, txt_SDT.Text);
                 txt_giacuocthang.Text = CuocThang.GetValueOrDefault(0).ToString("N0") + "VNĐ";
             }
             else
@@ -191,7 +218,7 @@ namespace CuocDT_Win.GUI
         private void button2_Click_1(object sender, EventArgs e)
         {
             frmBill cus = new frmBill();
-            
+
             cus.MdiParent = this;
             cus.FormBorderStyle = FormBorderStyle.None;
             content.Controls.Clear();
@@ -215,7 +242,7 @@ namespace CuocDT_Win.GUI
         }
         internal void test(int id, string name, string address, string job, string CMND)
         {
-            frmSim cus = new frmSim(id,name,address , job ,CMND);
+            frmSim cus = new frmSim(id, name, address, job, CMND);
             cus.MdiParent = this;
             cus.FormBorderStyle = FormBorderStyle.None;
             content.Controls.Clear();

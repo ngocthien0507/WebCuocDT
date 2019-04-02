@@ -1,5 +1,6 @@
 ﻿using CuocDT.Models;
 using Models.DAO;
+using Models.EF;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,6 +13,7 @@ namespace CuocDT.Controllers
 {
     public class CuocController : Controller
     {
+        CuocDbContext db = new CuocDbContext();
         // GET: Cuoc
         public ActionResult Index()
         {
@@ -27,6 +29,19 @@ namespace CuocDT.Controllers
             IEnumerable<LogInfo> query = ViewBag.query;
             //Hiển thị kết quả bằng hộp thoại
             return View(query.ToList());
+        }
+        public ActionResult Xemchitiet(int Month , string sdt)
+        {
+            ReadData(sdt);
+            ViewBag.SDT = sdt;
+            ViewBag.Month = Month;
+            IEnumerable<LogInfo> query = ViewBag.query;
+            var ListChiTiet = query.ToList();
+            IEnumerable<LogInfo> querymini = from row in ListChiTiet
+                                             where row.TGBD.Month ==  Month
+                                             orderby row.TGBD
+                                             select row;
+            return View(querymini.ToList());
         }
 
         public JsonResult CheckSDT(string sdt)
