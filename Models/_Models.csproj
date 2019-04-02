@@ -59,6 +59,7 @@
     <Compile Include="DAO\SimDAO.cs" />
     <Compile Include="EF\ChiTietHoaDonCuoc.cs" />
     <Compile Include="EF\CuocDbContext.cs" />
+    <Compile Include="EF\HDThanhToan.cs" />
     <Compile Include="EF\HoaDonCuoc.cs" />
     <Compile Include="EF\HoaDonDK.cs" />
     <Compile Include="EF\KhachHang.cs" />

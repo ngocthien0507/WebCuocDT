@@ -19,11 +19,16 @@ namespace Models.EF
         [StringLength(11)]
         public string SoDT { get; set; }
 
+        [Key]
+        [Column(Order = 2)]
         public DateTime TGBD { get; set; }
 
+        [Key]
+        [Column(Order = 3)]
         public DateTime TGKT { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? ThanhTien { get; set; }
+        [Key]
+        [Column(Order = 4, TypeName = "money")]
+        public decimal ThanhTien { get; set; }
     }
 }

@@ -1,11 +1,13 @@
 ﻿@model List<CuocDT.Models.LogInfo>
 @{
-    ViewBag.Title = "Search";
-    var ThueBao = (Models.EF.KhachHang)ViewBag.SoDT;
-    var HoaDonBySDT = (List<Models.EF.HoaDonCuoc>)ViewBag.HoaDonBySDT;
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    int M = DateTime.Now.Month;
-    int Y = DateTime.Now.Year;
+                /**/
+
+                ViewBag.Title = "Search";
+                var ThueBao = (Models.EF.KhachHang)ViewBag.SoDT;
+                var HoaDonBySDT = (List<Models.EF.HoaDonCuoc>)ViewBag.HoaDonBySDT;
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                int M = DateTime.Now.Month;
+                int Y = DateTime.Now.Year;
 
 
 }
@@ -28,24 +30,24 @@
             </tr>
         </thead>
         <tbody>
-                @foreach (var hoadon in HoaDonBySDT)
-                {
-            <tr>
-                <td>@hoadon.SoDT</td>
-                <td>@hoadon.Month</td>
-                <td>@hoadon.Year</td>
-                <td>@hoadon.TongTien.GetValueOrDefault(0).ToString("N0") VND</td>
-                @if (hoadon.TinhTrang == 0)
-                {
-                    <td>Chưa thanh toán</td>
-                }
-                else
-                {
-                    <td>Đã thanh toán</td>
-                }
-                <td>@Html.ActionLink("Xem chi tiết", "Xemchitiet", new { @Month = hoadon.Month , @sdt = hoadon.SoDT })</td>
-            </tr>
-                }
+            @foreach (var hoadon in HoaDonBySDT)
+            {
+                <tr>
+                    <td>@hoadon.SoDT</td>
+                    <td>@hoadon.Month</td>
+                    <td>@hoadon.Year</td>
+                    <td>@hoadon.TongTien.GetValueOrDefault(0).ToString("N0") VND</td>
+                    @if (hoadon.TinhTrang == 0)
+                    {
+                        <td style="color:red">Chưa thanh toán</td>
+                    }
+                    else
+                    {
+                        <td style="color:aqua">Đã thanh toán</td>
+                    }
+                    <td>@Html.ActionLink("Xem chi tiết", "Xemchitiet", new { @Month = hoadon.Month, @sdt = hoadon.SoDT })</td>
+                </tr>
+            }
         </tbody>
 
     </table>
