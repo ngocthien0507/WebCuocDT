@@ -122,7 +122,7 @@ namespace CuocDT_Win.GUI
                   bill.SoDT =  item.idSim.ToString();
                   bill.TongTien = a.TinhCuocThang(i,item.idSim);
                   bill.Month = i;
-                  bill.TinhTrang = 1;
+                  bill.TinhTrang = 0;
                   bill.Year = 2019;
                   db.HoaDonCuocs.Add(bill);
                   db.SaveChanges();
