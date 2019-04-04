@@ -12,6 +12,7 @@ namespace Models.EF
         [Key]
         public int idHDTT { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string TenKH { get; set; }
 
@@ -26,5 +27,9 @@ namespace Models.EF
         public int? Year { get; set; }
 
         public DateTime? NgayThanhToan { get; set; }
+
+        public int? idHD { get; set; }
+
+        public virtual HoaDonCuoc HoaDonCuoc { get; set; }
     }
 }

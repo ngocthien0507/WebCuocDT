@@ -12,6 +12,8 @@ namespace Models.EF
         {
         }
 
+        public virtual DbSet<ChiTietHoaDonCuoc> ChiTietHoaDonCuocs { get; set; }
+        public virtual DbSet<HDThanhToan> HDThanhToans { get; set; }
         public virtual DbSet<HoaDonCuoc> HoaDonCuocs { get; set; }
         public virtual DbSet<HoaDonDK> HoaDonDKs { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
@@ -19,11 +21,25 @@ namespace Models.EF
         public virtual DbSet<MenuType> MenuTypes { get; set; }
         public virtual DbSet<SIM> SIMs { get; set; }
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
-        public virtual DbSet<ChiTietHoaDonCuoc> ChiTietHoaDonCuocs { get; set; }
-        public virtual DbSet<HDThanhToan> HDThanhToans { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ChiTietHoaDonCuoc>()
+                .Property(e => e.SoDT)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ChiTietHoaDonCuoc>()
+                .Property(e => e.ThanhTien)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<HDThanhToan>()
+                .Property(e => e.SDT)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HDThanhToan>()
+                .Property(e => e.TongTien)
+                .HasPrecision(19, 4);
+
             modelBuilder.Entity<HoaDonCuoc>()
                 .Property(e => e.SoDT)
                 .IsUnicode(false);
@@ -78,22 +94,6 @@ namespace Models.EF
             modelBuilder.Entity<SystemConfig>()
                 .Property(e => e.idSys)
                 .IsFixedLength();
-
-            modelBuilder.Entity<ChiTietHoaDonCuoc>()
-                .Property(e => e.SoDT)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ChiTietHoaDonCuoc>()
-                .Property(e => e.ThanhTien)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<HDThanhToan>()
-                .Property(e => e.SDT)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<HDThanhToan>()
-                .Property(e => e.TongTien)
-                .HasPrecision(19, 4);
         }
     }
 }

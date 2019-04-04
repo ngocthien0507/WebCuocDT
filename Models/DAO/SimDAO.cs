@@ -41,5 +41,25 @@ namespace Models.DAO
             result.DataSource = bill.ToList();
             return result;
         }
+        public bool SaveCusSim(string name, string phone)
+        {
+            DateTime date = DateTime.Now;
+            SIM sim = db.SIMs.Single(a => a.idSim == phone.ToString());
+            sim.idSim = phone;
+            sim.ChuSoHuu = name;
+            sim.NgayKichHoat = date;
+            sim.TinhTrang = 1;
+            db.SaveChanges();
+            return true;
+        }
+        public bool AddSim(string phone)
+        {
+            SIM sim = new SIM();
+            sim.idSim = phone;
+            sim.TinhTrang = 0;
+            db.SIMs.Add(sim);
+            db.SaveChanges();
+            return true;
+        }
     }
 }

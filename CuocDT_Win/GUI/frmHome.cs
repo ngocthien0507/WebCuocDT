@@ -19,6 +19,8 @@ namespace CuocDT_Win.GUI
         SimDAO d = new SimDAO();
         public static frmHome fr;
         public CuocBIZ a = new CuocBIZ();
+        public BillBIZ bill = new BillBIZ();
+        public CuocDbContext db = new CuocDbContext();
         public frmHome()
         {
             InitializeComponent();
@@ -77,88 +79,65 @@ namespace CuocDT_Win.GUI
             }
         }
 
-        private void btn_cuocthang_Click(object sender, EventArgs e)
+        private void btn_cuocthang_Click(object sender, EventArgs e)// chưa xong
         {
-            CuocDbContext db = new CuocDbContext();
+            CuocBIZ c = new CuocBIZ();
             BillDAO a = new BillDAO();
             List<HoaDonCuoc> count = db.HoaDonCuocs.Select(b => b).ToList();
             var q = a.ListTableBill();
             if (q.Count == 0)
             {
-                AddData();
+                c.AddData();  
             }
 
             else
             {
-                int maxID = count.Max(p => p.idHD);
-                int minID = count.Min(p => p.idHD);
-                for (int i = minID; i <= maxID; i++)
-                {
-                    Xoa(i);
-                }
-                XoaChiTiet();
-                AddData();
+                bill.DeletePayBill();
+                bill.DeleteBillInf();
+                bill.DeleteBill();
+                c.AddData();
             }
         }
-        public void XoaChiTiet()
-        {
-            CuocDbContext db = new CuocDbContext();
-            var rows = from o in db.ChiTietHoaDonCuocs select o;
-            foreach (var row in rows)
-            {
-                db.ChiTietHoaDonCuocs.Remove(row);
-            }
-            db.SaveChanges();
-        }
-        public void Xoa(int id)
-        {
-            List<HoaDonCuoc> sanphams = new List<HoaDonCuoc>();
-            CuocDbContext db = new CuocDbContext();
-            HoaDonCuoc xoa = db.HoaDonCuocs.SingleOrDefault(a => a.idHD == id);
-            db.HoaDonCuocs.Remove(xoa);
-            db.SaveChanges();
-        }
-        public void AddData()
-        {
-            CuocDbContext db = new CuocDbContext();
-            HoaDonCuoc bill = new HoaDonCuoc();
-            SimDAO d = new SimDAO();
-            DateTime date = DateTime.Now;
-            int thang = date.Month;
-            foreach (var item in d.GetPhone())
-            {
-                var MonthStart = (DateTime)item.NgayKichHoat;
-                for (int i = MonthStart.Month; i < thang; i++)
-                {
-                    bill.SoDT = item.idSim.ToString();
-                    bill.TongTien = a.TinhCuocThang(i, item.idSim);
-                    bill.Month = i;
-                    bill.TinhTrang = 0;
-                    bill.Year = 2019;
-                    db.HoaDonCuocs.Add(bill);
-                    db.SaveChanges();
-                    ChiTietHoaDonCuoc billinf = new ChiTietHoaDonCuoc();
-                    var ListBill = from all in a.ListAll()
-                                   where all.SoDT == bill.SoDT.ToString()
-                                   where all.TGBD.Month == i
-                                   select all;
-                        foreach (var items in ListBill)
-                        {
-                            billinf.idHD = bill.idHD;
-                            billinf.SoDT = bill.SoDT.ToString();
-                            billinf.TGBD = items.TGBD;
-                            billinf.TGKT = items.TGKT;
-                            billinf.ThanhTien = items.ThanhTien;
-                            db.ChiTietHoaDonCuocs.Add(billinf);
-                            db.SaveChanges();
-                        }
-                }
-            }
 
 
-        }
+        /*  public void AddData()
+          {
+              BillBIZ bills = new BillBIZ();
+              HoaDonCuoc bill = new HoaDonCuoc();
+              SimDAO d = new SimDAO();
+              DateTime date = DateTime.Now;
+              int thang = date.Month;
+              foreach (var item in d.GetPhone())
+              {
+                  var MonthStart = (DateTime)item.NgayKichHoat;
+                  for (int i = MonthStart.Month; i < thang; i++)
+                  {
+                      string phone = item.idSim;
+                      decimal? totalprice = a.TinhCuocThang(i ,item.idSim);
+                      int month = i;
 
+                      bills.AddBill(phone, totalprice, month);
+                      var idhd = new BillDAO().InsertBill(bill);
+                      var ListBill = from all in a.ListAll()
+                                     where all.SoDT == bill.SoDT.ToString()
+                                     where all.TGBD.Month == i
+                                     select all;
+                      foreach (var items in ListBill)
+                      {  
+                          DateTime TGBD = items.TGBD;
+                          DateTime TGKT = items.TGKT;
+                          decimal? totalPrice = items.ThanhTien;
+                          int id = idhd;
+                          bills.AddBillInf(id, phone, TGBD, TGKT, totalPrice);
 
+                      }
+                  }
+              }
+
+      
+    }
+
+}*/
         private void txt_SDT_TextChanged(object sender, EventArgs e)
         {
             string SDT = txt_SDT.Text;
@@ -295,6 +274,14 @@ namespace CuocDT_Win.GUI
             {
                 Application.Exit();
             }
+        }
+
+        private void thêmSimToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAddSim sim = new frmAddSim();
+            this.Hide();
+            sim.ShowDialog();
+            this.Show();
         }
     }
 }

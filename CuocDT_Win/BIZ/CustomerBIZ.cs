@@ -10,74 +10,33 @@ namespace CuocDT_Win.BIZ
 {
     public class CustomerBIZ
     {
-        CuocDbContext db = new CuocDbContext();
+        public CuocDbContext db = new CuocDbContext();
         KhachHangDao cus = new KhachHangDao();
+        BillDAO bill = new BillDAO();
+        SimDAO sim = new SimDAO();
         public bool  GetAll()
         {           
            var Customer  = cus.ListAll();
            IEnumerable<KhachHang> query = from all in Customer select all ;
            return true;
         }
-        public bool Save(int id , string name , string address , string job , string CMND , string sodt)
-        {
-          
-            KhachHang Cus = db.KhachHangs.Single(a => a.idKhachHang == id);
-            Cus.idKhachHang = id;
-            Cus.TenKH = name;
-            Cus.DiaChi = address;
-            Cus.NgheNghiep = job;
-            Cus.CMND = CMND;
-            Cus.SoDT = sodt;
-            db.SaveChanges();
-            return true;
-        }
-        public bool SaveBill( string name, string address, string CMND)
-        {
 
-            HoaDonDK bill = db.HoaDonDKs.Single(a => a.CMND ==CMND );
-            bill.TenKH = name;
-            bill.DiaChi = address;
-            bill.CMND = CMND;
-            db.SaveChanges();
-            return true;
+        public bool SaveCus(int id , string name , string address , string job , string passport, string phone)
+        {
+            return cus.SaveCus(id, name, address, job, passport, phone);
         }
 
-        public bool Add(int id, string name, string address, string job, string CMND , string sodt)
-        {
-           
-            KhachHang Cus = new KhachHang();
-            Cus.idKhachHang = id;
-            Cus.TenKH = name;
-            Cus.DiaChi = address;
-            Cus.NgheNghiep = job;
-            Cus.CMND = CMND;
-            Cus.SoDT = sodt;
-            db.KhachHangs.Add(Cus);
-            return true;
+        public bool AddCus(int id, string name, string address, string job, string passport, string phone)
+        {           
+            return cus.AddCus(id, name, address,job, passport , phone);
         }
-        public bool SaveSim( string name, string sodt)
-        {
-            DateTime date = DateTime.Now;
-            SIM sim = db.SIMs.Single(a => a.idSim == sodt.ToString());
-            sim.idSim = sodt;
-            sim.ChuSoHuu = name;
-            sim.NgayKichHoat = date;
-            sim.TinhTrang = 1;
-            db.SaveChanges();
-            return true;
+
+        public bool SaveCusSim( string name, string phone)
+        {            
+            return sim.SaveCusSim(name, phone);
         }
-        public bool AddSimBill(string name, string CMND , string DiaChi)
-        {
-            DateTime date = DateTime.Now;
-            HoaDonDK bill = new HoaDonDK();
-            bill.TenKH = name;
-            bill.CMND = CMND;
-            bill.DiaChi = DiaChi;
-            bill.PhiHoaMang = 50000;
-            db.HoaDonDKs.Add(bill);
-            db.SaveChanges();
-            return true;
-        }
+
+        
 
     }
 }

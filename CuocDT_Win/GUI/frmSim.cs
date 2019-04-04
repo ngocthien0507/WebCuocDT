@@ -15,6 +15,7 @@ namespace CuocDT_Win.GUI
     public partial class frmSim : Form
     {
         public CustomerBIZ cus = new CustomerBIZ();
+        public BillBIZ bill = new BillBIZ();
         public frmSim()
         {
         
@@ -38,11 +39,10 @@ namespace CuocDT_Win.GUI
             txtPay.Text = " 50.000 VNĐ";
             textBox2.Text = job;
             textBox3.Text = id.ToString();
-            
-          
+  
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Đăng kí Sim
         {
             
             string name = txtName.Text;
@@ -53,7 +53,7 @@ namespace CuocDT_Win.GUI
 
 
                 int id = int.Parse(textBox3.Text);
-                if (cus.Add(id, name, address, job, CMND, phone) == true && cus.SaveSim(name, phone) == true && cus.AddSimBill(name, CMND, address) == true)
+                if (cus.AddCus(id, name, address, job, CMND, phone) == true && cus.SaveCusSim(name, phone) == true && bill.AddCusBill(name, CMND, address) == true)
                 {
                     MessageBox.Show(" Thêm dữ liệu thành công");
                     txtName.Text = "";

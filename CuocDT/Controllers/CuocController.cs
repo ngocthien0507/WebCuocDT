@@ -65,7 +65,7 @@ namespace CuocDT.Controllers
 
         public void ReadData(string sdt)
         {
-            string _filename = @"E:\Download\download\WebCuocDT-master\WebCuocDT-master\Log.txt";
+            string _filename = @"C:\Users\Thien\source\repos\WebCuocDT-master\Log.txt";
             string[] words;
             words = System.IO.File.ReadAllLines(_filename, Encoding.Unicode);
             //Encoding.Default: đọc theo mã mặc định của file text

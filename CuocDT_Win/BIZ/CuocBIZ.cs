@@ -6,12 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CuocDT.Controllers;
 using CuocDT.Models;
+using Models.DAO;
 using Models.EF;
 
 namespace CuocDT_Win.BIZ
 {
     public class CuocBIZ
     {
+        public CuocDbContext db = new CuocDbContext();
         public List<LogInfo> BagList = new List<LogInfo>();
         public List<LogInfo> BagListBySDT = new List<LogInfo>();
         public List<LogInfo> ListAll()
@@ -20,9 +22,8 @@ namespace CuocDT_Win.BIZ
         }
         public List<LogInfo> ListBySDT(string sdt)
         {
-            List<LogInfo> a = BagList;
-            IEnumerable<LogInfo> query = from row in a
-                                         where row.SoDT.Contains(sdt)
+            IEnumerable<LogInfo> query = from row in ListAll()
+                                         where row.SoDT.Equals(sdt)
                                          orderby row.TGBD
                                          select row;
             BagListBySDT = query.ToList();
@@ -32,13 +33,15 @@ namespace CuocDT_Win.BIZ
 
         public decimal? TinhCuocThang(int thang, string SDT)
         {
+            ListBySDT(SDT);
+
             int Time7h = 0;
             int Time23h = 0;
             decimal? CostMonth = 50000;
-            ListBySDT(SDT);
-            foreach(var item in BagListBySDT)
+            
+            foreach (var item in BagListBySDT)
             {
-                if(item.TGBD.Month == thang)
+                if (item.TGBD.Month == thang)
                 {
                     Time7h += item.TimeCall7h;
                     Time23h += item.TimeCall23h;
@@ -51,7 +54,7 @@ namespace CuocDT_Win.BIZ
 
         public List<LogInfo> ReadData()
         {
-            string _filename = @"E:\Download\download\WebCuocDT-master\WebCuocDT-master\Log.txt";
+            string _filename = @"C:\Users\Thien\source\repos\WebCuocDT-master\Log.txt";
             string[] words;
             words = System.IO.File.ReadAllLines(_filename, Encoding.Unicode);
             //Encoding.Default: đọc theo mã mặc định của file text
@@ -107,5 +110,49 @@ namespace CuocDT_Win.BIZ
             return list;
         }
 
+        public bool AddSim(string phone)
+        {
+            SimDAO sim = new SimDAO();
+            return sim.AddSim(phone) ;
+        }
+
+        public void AddData()
+        {
+            
+            BillBIZ bills = new BillBIZ();
+
+            SimDAO sim = new SimDAO();
+
+            DateTime date = DateTime.Now;
+            int thang = date.Month;
+
+            foreach (var item in sim.GetPhone())
+            {
+                var MonthStart = (DateTime)item.NgayKichHoat;
+                for (int i = MonthStart.Month; i < thang; i++)
+                {
+                    string phone = item.idSim;
+                    decimal? totalprice = TinhCuocThang(i, item.idSim); 
+                    int month = i;
+                    bills.AddBill(phone, totalprice, month);
+
+                    var ListBillInf = from all in ListAll()
+                                   where all.SoDT == item.idSim
+                                   where all.TGBD.Month == i
+                                   select all;
+                    foreach (var items in ListBillInf)
+                    {
+
+                        int id = db.HoaDonCuocs.Select(g => g.idHD).DefaultIfEmpty(0).Max();
+                        DateTime TGBD = items.TGBD;
+                        DateTime TGKT = items.TGKT;
+                        decimal? totalPrice = items.ThanhTien;
+                        bills.AddBillInf(id, phone, TGBD, TGKT, totalPrice);
+
+                    }
+                }
+            }
+
+        }
     }
 }

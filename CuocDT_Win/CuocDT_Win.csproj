@@ -56,6 +56,12 @@
     <Compile Include="BIZ\BillBIZ.cs" />
     <Compile Include="BIZ\CuocBIZ.cs" />
     <Compile Include="BIZ\CustomerBIZ.cs" />
+    <Compile Include="GUI\frmAddSim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmAddSim.Designer.cs">
+      <DependentUpon>frmAddSim.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\frmBill.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,12 @@
     <Compile Include="GUI\frmHome.Designer.cs">
       <DependentUpon>frmHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\frmPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmPay.Designer.cs">
+      <DependentUpon>frmPay.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\frmSim.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +100,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\frmAddSim.resx">
+      <DependentUpon>frmAddSim.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmBill.resx">
       <DependentUpon>frmBill.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmHome.resx">
       <DependentUpon>frmHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\frmPay.resx">
+      <DependentUpon>frmPay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmSim.resx">
       <DependentUpon>frmSim.cs</DependentUpon>
@@ -127,6 +145,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{27c1cc1a-d5da-451c-a0cd-1618b110f913}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CuocDT\CuocDT.csproj">
       <Project>{9f52c11d-d6c0-4c3a-869d-91e1692e90c9}</Project>
       <Name>CuocDT</Name>

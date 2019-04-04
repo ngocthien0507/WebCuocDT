@@ -14,6 +14,7 @@ namespace CuocDT_Win.GUI
 {
     public partial class frmCustomer : Form
     {
+        public BillBIZ bill = new BillBIZ();
         public CustomerBIZ cus = new CustomerBIZ();
         KhachHangDao a = new KhachHangDao();
         public frmCustomer()
@@ -33,7 +34,7 @@ namespace CuocDT_Win.GUI
             txtAddress.DataBindings.Add(new Binding("Text", dtgvCus.DataSource, "Address"));
         }
 
-        private void bntSave_Click(object sender, EventArgs e)
+        private void bntSave_Click(object sender, EventArgs e) // Save Thông tinh khách
         {
             int id = int.Parse(dtgvCus.SelectedCells[0].OwningRow.Cells["ID"].Value.ToString());
             string name = txtName.Text;
@@ -42,7 +43,7 @@ namespace CuocDT_Win.GUI
             string phone = txtPhone.Text;
             string job = txtJob.Text;
 
-            if (cus.Save(id, name, address, job, CMND , phone) == true && cus.SaveBill(name , address , CMND) == true)
+            if (cus.SaveCus(id, name, address, job, CMND , phone) == true && bill.SaveCusBill(name , address , CMND) == true)
             {
                 MessageBox.Show(" Thay đổi dữ liệu thành công");
                 dtgvCus.DataSource = a.GetAllCus();
@@ -54,7 +55,7 @@ namespace CuocDT_Win.GUI
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Đăng kí Cus
         {
             int id = int.Parse(dtgvCus.SelectedCells[0].OwningRow.Cells["ID"].Value.ToString());
             string name = textBox2.Text;

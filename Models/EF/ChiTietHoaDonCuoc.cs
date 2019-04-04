@@ -10,25 +10,21 @@ namespace Models.EF
     public partial class ChiTietHoaDonCuoc
     {
         [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idHD { get; set; }
+        public int idCTHD { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Required]
         [StringLength(11)]
         public string SoDT { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         public DateTime TGBD { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
         public DateTime TGKT { get; set; }
 
-        [Key]
-        [Column(Order = 4, TypeName = "money")]
-        public decimal ThanhTien { get; set; }
+        [Column(TypeName = "money")]
+        public decimal? ThanhTien { get; set; }
+
+        public int? idHD { get; set; }
+
+        public virtual HoaDonCuoc HoaDonCuoc { get; set; }
     }
 }

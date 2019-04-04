@@ -50,6 +50,7 @@
             this.txt_SDT = new System.Windows.Forms.TextBox();
             this.btn_search = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.thêmSimToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -96,6 +97,7 @@
             this.thoToolStripMenuItem,
             this.hóaĐơnToolStripMenuItem,
             this.tínhCướcToolStripMenuItem,
+            this.thêmSimToolStripMenuItem,
             this.thoátToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -277,6 +279,13 @@
             this.dataGridView1.Size = new System.Drawing.Size(986, 421);
             this.dataGridView1.TabIndex = 6;
             // 
+            // thêmSimToolStripMenuItem
+            // 
+            this.thêmSimToolStripMenuItem.Name = "thêmSimToolStripMenuItem";
+            this.thêmSimToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            this.thêmSimToolStripMenuItem.Text = "Thêm Sim";
+            this.thêmSimToolStripMenuItem.Click += new System.EventHandler(this.thêmSimToolStripMenuItem_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -329,5 +338,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem thêmSimToolStripMenuItem;
     }
 }

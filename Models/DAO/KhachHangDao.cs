@@ -39,5 +39,37 @@ namespace Models.DAO
             var model = db.KhachHangs.Where(x => x.SoDT.Contains(sdt));
             return model.SingleOrDefault();
         }
+        public bool SaveCus(int id, string name, string address, string job, string CMND, string sodt)
+        {
+
+            KhachHang Cus = db.KhachHangs.Single(a => a.idKhachHang == id);
+            Cus.idKhachHang = id;
+            Cus.TenKH = name;
+            Cus.DiaChi = address;
+            Cus.NgheNghiep = job;
+            Cus.CMND = CMND;
+            Cus.SoDT = sodt;
+            try
+            {
+                db.SaveChanges();
+                return true;
+            }
+            catch { return false; }
+
+        }
+        public bool AddCus(int id, string name, string address, string job, string CMND, string sodt)
+        {
+
+            KhachHang Cus = new KhachHang();
+            Cus.idKhachHang = id;
+            Cus.TenKH = name;
+            Cus.DiaChi = address;
+            Cus.NgheNghiep = job;
+            Cus.CMND = CMND;
+            Cus.SoDT = sodt;
+            db.KhachHangs.Add(Cus);
+            return true;
+        }
+
     }
 }

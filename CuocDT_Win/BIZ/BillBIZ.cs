@@ -28,32 +28,75 @@ namespace CuocDT_Win.BIZ
             return HoaDonCuoc;
         }
 
-        public BindingSource GetBillByMonth(string thang)
+        public BindingSource SearchByMonth(string thang)
         {
-            var bill = from p in db.HoaDonCuocs
-                       where p.Month.ToString() == thang
-                       select new { ID = p.idHD, Phone = p.SoDT, TotalPrice = p.TongTien, Month = p.Month, Year = p.Year };
-            BindingSource result = new BindingSource();
-            result.DataSource = bill.ToList();
-            return result;
+          
+            return bill.GetBillByMonth(thang);
         }
-        public BindingSource GetBillByPass(string pass)
-        {
-            var bill = from p in db.HoaDonDKs
-                       where p.CMND.Contains(pass)
-                       select new { ID = p.idHD, Name = p.TenKH, Passport = p.CMND, Address = p.DiaChi, ConnectionFee = p.PhiHoaMang };
-            BindingSource result = new BindingSource();
-            result.DataSource = bill.ToList();
-            return result;
-        }
-        public bool SaveStatus(int id )
+        public BindingSource SearchAll(string phone , string month)
         {
 
-            HoaDonCuoc bill = db.HoaDonCuocs.Single(a => a.idHD == id);
-            bill.TinhTrang = 1;
-            db.SaveChanges();
-            return true;
+            return bill.GetBillByAll(phone , month); 
+        }
+        public BindingSource SearchByPhone(string phone)// chauw
+        {
+
+            return bill.GetBillByPhone(phone);
+        }
+        public BindingSource SearchByPass(string pass)
+        {
+            return bill.GetBillByPass(pass);
+        }
+        public List<HoaDonCuoc> GetBillByIDHD(int id)
+        {
+
+            return bill.GetBillByIDHD(id);
+        }
+        public bool SaveStatus(int id ) 
+        {
+            return bill.SaveStatusBill(id);
+        }
+        #region // Add
+        public bool AddPayBill(int id, string name, int month, string phone, decimal totalprice)
+        {
+            return bill.AddPayBill(id, name, month, phone, totalprice);
         }
 
+        public bool AddBillInf(int id, string phone, DateTime TGBD, DateTime TGKT, decimal? totalprice)
+        {
+
+            return bill.AddBillInf(id, phone, TGBD, TGKT, totalprice);
+        }
+        public bool AddBill(string phone, decimal? totalprice, int month)
+        {
+
+            return bill.AddBill(phone, totalprice, month);
+        }
+        #endregion
+        #region // Save
+        public bool AddCusBill(string name, string passport, string address)
+        {
+            return bill.SaveCusBill(name, passport, address);
+        }
+
+        public bool SaveCusBill(string name, string address, string passport)
+        {
+            return bill.SaveCusBill(name, address, passport);
+        }
+        #endregion
+        #region // delete
+        public bool DeletePayBill()
+        {
+            return bill.DeletePayBill();
+        }
+        public bool DeleteBill()
+        {
+            return bill.DeleteBill();
+        }
+        public bool DeleteBillInf()
+        {
+            return bill.DeleteBillInf();
+        }
+        #endregion
     }
 }

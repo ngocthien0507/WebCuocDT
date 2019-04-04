@@ -14,6 +14,21 @@ namespace Models.DAO
         {
             db = new CuocDbContext();
         }
+
+        public bool Insert(ChiTietHoaDonCuoc chitiet)
+        {
+            try
+            {
+                db.ChiTietHoaDonCuocs.Add(chitiet);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public List<ChiTietHoaDonCuoc> ListAll()
         {
             return db.ChiTietHoaDonCuocs.ToList();

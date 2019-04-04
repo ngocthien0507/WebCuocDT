@@ -34,3 +34,15 @@ E:\Download\download\WebCuocDT-master\WebCuocDT-master\Models\obj\Debug\_Models.
 E:\Download\download\WebCuocDT-master\WebCuocDT-master\Models\obj\Debug\_Models.csproj.CopyComplete
 E:\Download\download\WebCuocDT-master\WebCuocDT-master\Models\obj\Debug\Models.dll
 E:\Download\download\WebCuocDT-master\WebCuocDT-master\Models\obj\Debug\Models.pdb
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\Models.dll.config
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\Models.dll
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\Models.pdb
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\EntityFramework.dll
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\EntityFramework.xml
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\obj\Debug\_Models.csprojAssemblyReference.cache
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\obj\Debug\_Models.csproj.CoreCompileInputs.cache
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\obj\Debug\_Models.csproj.CopyComplete
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\obj\Debug\Models.dll
+C:\Users\Thien\source\repos\WebCuocDT-master\Models\obj\Debug\Models.pdb

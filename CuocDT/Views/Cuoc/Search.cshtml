@@ -1,13 +1,13 @@
 ﻿@model List<CuocDT.Models.LogInfo>
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Search";
-                var ThueBao = (Models.EF.KhachHang)ViewBag.SoDT;
-                var HoaDonBySDT = (List<Models.EF.HoaDonCuoc>)ViewBag.HoaDonBySDT;
-                Layout = "~/Views/Shared/_Layout.cshtml";
-                int M = DateTime.Now.Month;
-                int Y = DateTime.Now.Year;
+    ViewBag.Title = "Search";
+    var ThueBao = (Models.EF.KhachHang)ViewBag.SoDT;
+    var HoaDonBySDT = (List<Models.EF.HoaDonCuoc>)ViewBag.HoaDonBySDT;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int M = DateTime.Now.Month;
+    int Y = DateTime.Now.Year;
 
 
 }
@@ -49,13 +49,11 @@
                 </tr>
             }
         </tbody>
-
     </table>
+    <a class="btn-link" href="/Cuoc">Quay lại</a>
 }
 else
 {
     <h1>Không có thuê bao tra cứu</h1>
 }
-
-
 

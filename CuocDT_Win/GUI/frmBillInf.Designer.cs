@@ -131,7 +131,6 @@
             this.Controls.Add(this.groupBox3);
             this.Name = "frmBillInf";
             this.Text = "Chi tiết hóa đơn";
-            this.Load += new System.EventHandler(this.frmBillInf_Load);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBillP)).EndInit();
             this.groupBox1.ResumeLayout(false);
