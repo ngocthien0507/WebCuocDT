@@ -27,6 +27,9 @@ namespace Models.EF
         [StringLength(11)]
         public string SoDT { get; set; }
 
+        [StringLength(50)]
+        public string Email { get; set; }
+
         public virtual SIM SIM { get; set; }
     }
 }

@@ -4,3 +4,9 @@ C:\Users\Thien\source\repos\WebCuocDT-master\Common\bin\Debug\Common.dll
 C:\Users\Thien\source\repos\WebCuocDT-master\Common\bin\Debug\Common.pdb
 C:\Users\Thien\source\repos\WebCuocDT-master\Common\obj\Debug\Common.dll
 C:\Users\Thien\source\repos\WebCuocDT-master\Common\obj\Debug\Common.pdb
+C:\Users\Thien\Desktop\WebCuocDT\Common\bin\Debug\Common.dll
+C:\Users\Thien\Desktop\WebCuocDT\Common\bin\Debug\Common.pdb
+C:\Users\Thien\Desktop\WebCuocDT\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\Thien\Desktop\WebCuocDT\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\Thien\Desktop\WebCuocDT\Common\obj\Debug\Common.dll
+C:\Users\Thien\Desktop\WebCuocDT\Common\obj\Debug\Common.pdb

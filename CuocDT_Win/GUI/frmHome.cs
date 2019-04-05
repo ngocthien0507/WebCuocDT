@@ -219,9 +219,9 @@ namespace CuocDT_Win.GUI
         {
 
         }
-        internal void test(int id, string name, string address, string job, string CMND)
+        internal void test(int id, string name, string address, string job, string CMND , string email)
         {
-            frmSim cus = new frmSim(id, name, address, job, CMND);
+            frmSim cus = new frmSim(id, name, address, job, CMND, email);
             cus.MdiParent = this;
             cus.FormBorderStyle = FormBorderStyle.None;
             content.Controls.Clear();

@@ -45,7 +45,6 @@ namespace Models.DAO
         {
             DateTime date = DateTime.Now;
             SIM sim = db.SIMs.Single(a => a.idSim == phone.ToString());
-            sim.idSim = phone;
             sim.ChuSoHuu = name;
             sim.NgayKichHoat = date;
             sim.TinhTrang = 1;

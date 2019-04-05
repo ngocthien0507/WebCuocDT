@@ -47,7 +47,7 @@ namespace CuocDT_Win.BIZ
         {
             return bill.GetBillByPass(pass);
         }
-        public List<HoaDonCuoc> GetBillByIDHD(int id)
+        public HoaDonCuoc GetBillByIDHD(int id)
         {
 
             return bill.GetBillByIDHD(id);
@@ -76,7 +76,7 @@ namespace CuocDT_Win.BIZ
         #region // Save
         public bool AddCusBill(string name, string passport, string address)
         {
-            return bill.SaveCusBill(name, passport, address);
+            return bill.AddCusBill(name, passport, address);
         }
 
         public bool SaveCusBill(string name, string address, string passport)

@@ -96,10 +96,10 @@ namespace Models.DAO
             return db.HoaDonCuocs.ToList();
         }
 
-        public List<HoaDonCuoc> GetBillByIDHD(int id)
+        public HoaDonCuoc GetBillByIDHD(int id)
         {
             var result = db.HoaDonCuocs.Where(l => l.idHD == id);
-            return result.ToList();
+            return result.SingleOrDefault();
         }
 
         public BindingSource GetBillByPass(string pass)

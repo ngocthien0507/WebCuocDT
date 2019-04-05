@@ -24,7 +24,7 @@ namespace Models.DAO
         }
         public BindingSource GetAllCus()
         {
-            var Cus = from p in db.KhachHangs select new { ID = p.idKhachHang , Name = p.TenKH , Passport = p.CMND , Job = p.NgheNghiep , Address = p.DiaChi , Phone = p.SoDT  };
+            var Cus = from p in db.KhachHangs select new { ID = p.idKhachHang , Name = p.TenKH , Passport = p.CMND , Job = p.NgheNghiep , Address = p.DiaChi , Phone = p.SoDT, Email = p.Email  };
             BindingSource result = new BindingSource();
             result.DataSource = Cus.ToList();
             return result;
@@ -39,7 +39,7 @@ namespace Models.DAO
             var model = db.KhachHangs.Where(x => x.SoDT.Contains(sdt));
             return model.SingleOrDefault();
         }
-        public bool SaveCus(int id, string name, string address, string job, string CMND, string sodt)
+        public bool SaveCus(int id, string name, string address, string job, string CMND, string sodt, string email)
         {
 
             KhachHang Cus = db.KhachHangs.Single(a => a.idKhachHang == id);
@@ -49,6 +49,7 @@ namespace Models.DAO
             Cus.NgheNghiep = job;
             Cus.CMND = CMND;
             Cus.SoDT = sodt;
+            Cus.Email = email;
             try
             {
                 db.SaveChanges();
@@ -57,7 +58,7 @@ namespace Models.DAO
             catch { return false; }
 
         }
-        public bool AddCus(int id, string name, string address, string job, string CMND, string sodt)
+        public bool AddCus(int id, string name, string address, string job, string CMND, string sodt, string email)
         {
 
             KhachHang Cus = new KhachHang();
@@ -67,7 +68,9 @@ namespace Models.DAO
             Cus.NgheNghiep = job;
             Cus.CMND = CMND;
             Cus.SoDT = sodt;
+            Cus.Email = email;
             db.KhachHangs.Add(Cus);
+            db.SaveChanges();
             return true;
         }
 

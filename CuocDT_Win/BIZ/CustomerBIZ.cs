@@ -21,14 +21,14 @@ namespace CuocDT_Win.BIZ
            return true;
         }
 
-        public bool SaveCus(int id , string name , string address , string job , string passport, string phone)
+        public bool SaveCus(int id , string name , string address , string job , string passport, string phone, string email)
         {
-            return cus.SaveCus(id, name, address, job, passport, phone);
+            return cus.SaveCus(id, name, address, job, passport, phone , email);
         }
 
-        public bool AddCus(int id, string name, string address, string job, string passport, string phone)
+        public bool AddCus(int id, string name, string address, string job, string passport, string phone, string email)
         {           
-            return cus.AddCus(id, name, address,job, passport , phone);
+            return cus.AddCus(id, name, address,job, passport , phone, email);
         }
 
         public bool SaveCusSim( string name, string phone)

@@ -32,6 +32,7 @@ namespace CuocDT_Win.GUI
             txtPass.DataBindings.Add(new Binding("Text", dtgvCus.DataSource, "Passport"));
             txtPhone.DataBindings.Add(new Binding("Text", dtgvCus.DataSource, "Phone"));
             txtAddress.DataBindings.Add(new Binding("Text", dtgvCus.DataSource, "Address"));
+            txtEmail.DataBindings.Add(new Binding("Text", dtgvCus.DataSource, "Email"));
         }
 
         private void bntSave_Click(object sender, EventArgs e) // Save Thông tinh khách
@@ -42,8 +43,9 @@ namespace CuocDT_Win.GUI
             string CMND = txtPass.Text;
             string phone = txtPhone.Text;
             string job = txtJob.Text;
+            string email = txtEmail.Text;
 
-            if (cus.SaveCus(id, name, address, job, CMND , phone) == true && bill.SaveCusBill(name , address , CMND) == true)
+            if (cus.SaveCus(id, name, address, job, CMND , phone , email) == true && bill.SaveCusBill(name , address , CMND) == true)
             {
                 MessageBox.Show(" Thay đổi dữ liệu thành công");
                 dtgvCus.DataSource = a.GetAllCus();
@@ -62,14 +64,15 @@ namespace CuocDT_Win.GUI
             string address = textBox1.Text;
             string CMND = textBox4.Text;
             string job = textBox5.Text;
-            if (  name == "" || address == "" || CMND =="" || job =="" )
+            string email = textBox3.Text;
+            if (  name == "" || address == "" || CMND =="" || job =="" || email == "")
             {
                 MessageBox.Show("Vui lòng điền thông tin");
             }
             else
             {
 
-                frmHome.fr.test(id, name, address, job, CMND);
+                frmHome.fr.test(id, name, address, job, CMND, email);
 
             }
             

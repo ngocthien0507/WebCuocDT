@@ -26,29 +26,27 @@ namespace CuocDT_Win.GUI
 
         public frmPay(int id) : this()
         {
-           DateTime date = DateTime.Now;
-           var ListBill = bill.GetBillByIDHD(id);
-           textBox1.Text = id.ToString();            
-           foreach( var items in ListBill)
-            {
-                textBox2.Text = items.SIM.ChuSoHuu;
-                textBox3.Text = items.SoDT.ToString();
-                textBox5.Text = items.Month.ToString();
-                textBox4.Text = items.TongTien.ToString();
-                textBox6.Text = date.ToString();
-            }
-           
+            DateTime date = DateTime.Now;
+            var Bill = bill.GetBillByIDHD(id);
+            var Customer = new KhachHangDao().ListTheoSDT(Bill.SoDT);
+            textBox1.Text = id.ToString();
+            textBox2.Text = Bill.SIM.ChuSoHuu;
+            textBox3.Text = Bill.SoDT.ToString();
+            textBox5.Text = Bill.Month.ToString();
+            textBox4.Text = Bill.TongTien.ToString();
+            textBox6.Text = date.ToString();
+            textBox7.Text = Customer.Email;
         }
 
-        
+
         private void button1_Click(object sender, EventArgs e) // lỗi sau khi thanh toán k load liền đc status bên Bill
         {
             int id = int.Parse(textBox1.Text);
             string name = textBox2.Text;
-            string phone=   textBox3.Text;
-            int month =  int.Parse(textBox5.Text);
+            string phone = textBox3.Text;
+            int month = int.Parse(textBox5.Text);
             string email = textBox7.Text;
-            decimal totalprice =   decimal.Parse(textBox4.Text) ;
+            decimal totalprice = decimal.Parse(textBox4.Text);
             decimal? mailprice = totalprice;
             var end = from all in db.HDThanhToans
                       where all.idHD == id
@@ -84,7 +82,7 @@ namespace CuocDT_Win.GUI
 
 
 
-           
+
         }
     }
 }

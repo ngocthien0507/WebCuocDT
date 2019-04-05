@@ -64,6 +64,10 @@ namespace Models.EF
                 .Property(e => e.SoDT)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<KhachHang>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Menu>()
                 .Property(e => e.Link)
                 .IsUnicode(false);
