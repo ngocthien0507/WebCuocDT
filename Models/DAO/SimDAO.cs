@@ -41,6 +41,14 @@ namespace Models.DAO
             result.DataSource = bill.ToList();
             return result;
         }
+
+        public List<SIM> GetListPhone()
+        {
+            var sims = from p in db.SIMs
+                       select p;
+            return sims.ToList();
+        }
+
         public bool SaveCusSim(string name, string phone)
         {
             DateTime date = DateTime.Now;
